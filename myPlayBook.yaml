@@ -20,3 +20,18 @@
         msg: Executing as my tag is defined   
       tags:
         - execute_only
+    - name: Task that will fail
+      command: ls -ltr /home/{{ user }}       
+      ignore_errors: yes
+    - name: Run Task after failure
+      debug:
+        msg: Previous Task got failed
+    - name: Install Maven
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - maven
+        - default-jdk
+      tags:
+        - package
