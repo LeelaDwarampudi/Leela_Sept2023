@@ -32,4 +32,13 @@
         name: jenkins
         state: present
         update_cache: yes
-        
+
+    - name: Retrieve Jenkins Initial Admin Password
+      shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: jenkins_initialAdminPassword
+      ignore_errors: yes
+
+    - name: Print initialAdminPassword
+      debug: var=jenkins_initialAdminPassword.stdout_lines
+      ignore_errors: yes
+      
